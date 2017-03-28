@@ -1,30 +1,33 @@
 function solve() {
-    return function (selector) {
+    return function() {
         var template = `
-        <div class="event-calendar">
-        <h2 class="header">Appointments for <span class="month">{{month}}</span> <span class="year">{{year}}</span></h2>
-        {{#each days}}
-        <div class="col-date">
-            <div class="date">{{day}}</div>
-            <div class="events">
-            {{#each events}}
-            {{#if title}}
-            <div class="event {{importance}}" title="duration: {{duration}}">
-            <div class="title">{{title}}</div>
-            <span class="time">{{time}}</span>
-           </div>
-          {{else}}
-          <div class="event none">
-          <div class="title">Free slot</div>
-          </div>
-          {{/if}}
-          {{/each}}
-          </div>
-          </div>
-          {{/each}}
-          </div>
+        <ul class="nav">
+              {{#if logo}}
+        <li class="nav-item logo">
+        <a href="{{logo.url}}">
+        <img src="{{logo.image}}">
+        </a>
+        </li>
+              {{/if}}
+              {{#if items}}
+              {{#each items}}
+        <li class="nav-item">
+        <a href="{{url}}">{{title}}</a>
+              {{#if items}}
+        <ul class="subnav">
+              {{#each items}}
+        <li class="nav-item">
+        <a href="{{url}}">{{title}}</a>
+        </li>
+              {{/each}}
+        </ul>
+              {{/if}}
+        </li>
+              {{/each}}
+              {{/if}}
+        </ul>
         `;
-        document.getElementById(selector).innerHTML = template;
+        return template;
     };
 }
 
